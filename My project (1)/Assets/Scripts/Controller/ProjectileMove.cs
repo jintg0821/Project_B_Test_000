@@ -16,7 +16,7 @@ public class ProjectileMove : MonoBehaviour
     {
         Debug.Log(collision.gameObject.name);                       //충돌이 일어날 때 이름을 가져온다.
 
-        if(collision.gameObject.name == "wall")                     //벽에 충돌이 일어났을 때
+        if(collision.gameObject.name == "Wall")                     //벽에 충돌이 일어났을 때
         {
             GameObject temp = this.gameObject;                      //나 자신을 가져와서 temp 에 입력한다.
             Destroy(temp);                                          //곧바로 파괴한다.
@@ -25,6 +25,22 @@ public class ProjectileMove : MonoBehaviour
         if (collision.gameObject.name == "Monster")                 //몬스터에 충돌이 일어났을 때
         {
             collision.gameObject.GetComponent<MonsterController>().Monster_Damaged(1);
+            GameObject temp = this.gameObject;                      //나 자신을 가져와서 temp 에 입력한다.
+            Destroy(temp);                                          //곧바로 파괴한다.
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {   
+        if (other.gameObject.tag == "Wall")                        //벽에 충돌이 일어났을 때
+        {
+            GameObject temp = this.gameObject;                      //나 자신을 가져와서 temp 에 입력한다.
+            Destroy(temp);                                          //곧바로 파괴한다.
+        }
+
+        if (other.gameObject.tag == "Monster")                     //몬스터에 충돌이 일어났을 때
+        {
+            other.gameObject.GetComponent<MonsterController>().Monster_Damaged(1);
             GameObject temp = this.gameObject;                      //나 자신을 가져와서 temp 에 입력한다.
             Destroy(temp);                                          //곧바로 파괴한다.
         }
